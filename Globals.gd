@@ -2,7 +2,7 @@ extends Node
 class_name G
 
 enum TileStatus {
-	ok, move, capture, gender
+	ok, move, capture, gender, explode
 }
 enum TilePieces {
 	empty, pawn, colonel, general,
@@ -23,3 +23,4 @@ var can_passant : Dictionary = {}
 var rand : bool
 var predict : bool = false
 var moves : PackedStringArray = []
+var end := false

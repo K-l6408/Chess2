@@ -18,17 +18,17 @@ var bottomright : Tile
 var topleft : Tile
 var bottomleft : Tile
 
-var dirs := ["top", "topleft", "topright", "left", "right", "bottom", "bottomleft", "bottomright"]
-var orþg := ["top", "left", "right", "bottom"]
+const dirs := ["top", "topleft", "topright", "left", "right", "bottom", "bottomleft", "bottomright"]
+const orþg := ["top", "left", "right", "bottom"]
+const Monarchs := [
+	G.TilePieces.monarchM, G.TilePieces.monarchF, G.TilePieces.monarchX
+]
+const Pieces = preload("res://Assets/Pieces.png")
 
 var from : Tile
 var Reverse : bool = false
 var Moved : bool = false
-var Monarchs := [
-	G.TilePieces.monarchM, G.TilePieces.monarchF, G.TilePieces.monarchX
-]
 
-var Pieces = preload("res://Assets/Pieces.png")
 
 func _ready():
 	var AT = AtlasTexture.new()
@@ -77,7 +77,7 @@ func _process(_delta):
 	elif right:
 		bottomright = right.bottom
 	
-	$St.animation = "-MXG"[Status]
+	$St.animation = "-MXGB"[Status]
 	
 	$Ice.hide()
 	if Piece != G.TilePieces.empty and Piece != G.TilePieces.skeleton:
@@ -92,6 +92,8 @@ func _process(_delta):
 						$Ice.show()
 
 func _on_pressed():
+	if Status == G.TileStatus.explode:
+		emit_signal("boom")
 	if Status == G.TileStatus.gender:
 		Status = G.TileStatus.ok
 		emit_signal("press", self)
@@ -153,6 +155,8 @@ func _on_pressed():
 			pawn(2)
 		G.TilePieces.general:
 			pawn(3)
+		G.TilePieces.bomb:
+			Status = G.TileStatus.explode
 		G.TilePieces.imposter:
 			for D in dirs:
 				if goto(get(D)) and get(D).get(D):
@@ -384,3 +388,4 @@ func goto(T:Tile):
 	return false
 
 signal press(slf)
+signal boom()

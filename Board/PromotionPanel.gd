@@ -12,5 +12,6 @@ func _ready():
 	for c in get_children():
 		var k = c.texture_normal.region.position.x / 50
 		c.connect("pressed", func(): emit_signal("promote", k as G.TilePieces))
+		c.connect("pressed", hide)
 
 signal promote(piece : G.TilePieces)

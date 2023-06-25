@@ -19,6 +19,10 @@ var Status:
 				str = ""
 		return A
 
+func _unhandled_input(event):
+	if Globals.end:
+		get_viewport().set_input_as_handled()
+
 func _ready():
 	for I in 144:
 		var B = tile.instantiate()
@@ -39,6 +43,7 @@ func _ready():
 			T.region.position.y = 0
 		B.texture_normal = T
 		B.connect("press", _refresh)
+		B.connect("boom", win.bind("Everyone\nLoses", Color("0005")))
 		Tiles.append(B)
 		add_child(B)
 	
@@ -144,5 +149,22 @@ func _refresh(t:Tile):
 		Globals.turn += 1
 		if Globals.turn == G.Colours.END:
 			Globals.turn = 1
+	var RM := false
+	var BM := false
 	for i in Tiles:
 		i.Status = G.TileStatus.ok
+		if i.Colour == G.Colours.blue and i.Piece in Tile.Monarchs:
+			BM = true
+		if i.Colour == G.Colours.red  and i.Piece in Tile.Monarchs:
+			RM = true
+	if not BM:
+		win("Red Wins", Color("c005"))
+	elif not RM:
+		win("Blue Wins", Color("00c5"))
+
+func win(T, C):
+	Globals.end = true
+	var W = load("res://Win.tscn").instantiate()
+	W.Text = T
+	W.Colr = C
+	$Idc.add_child(W)
