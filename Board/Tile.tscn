@@ -14,7 +14,7 @@
 atlas = ExtResource("1_e83qq")
 region = Rect2(0, 0, 50, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4hkoh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ned5b"]
 atlas = ExtResource("3_fg158")
 region = Rect2(0, 0, 50, 50)
 
@@ -98,7 +98,7 @@ texture = ExtResource("3_dwnqq")
 
 [node name="Piece" type="Sprite2D" parent="."]
 position = Vector2(25, 25)
-texture = SubResource("AtlasTexture_4hkoh")
+texture = SubResource("AtlasTexture_ned5b")
 
 [node name="St" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4qd2t")

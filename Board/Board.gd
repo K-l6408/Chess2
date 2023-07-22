@@ -10,10 +10,16 @@ var Status:
 		var A : PackedStringArray
 		var str : String = ""
 		for I in 144:
-			if Tiles[I].Colour == G.Colours.red:
-				str += G.StrPieces[Tiles[I].Piece].to_upper()
+			if Tiles[I].Reverse and Tiles[I].Piece <= Globals.TilePieces.general:
+				if Tiles[I].Colour == G.Colours.red:
+					str += G.StrPieces[Tiles[I].Piece+17].to_upper()
+				else:
+					str += G.StrPieces[Tiles[I].Piece+17]
 			else:
-				str += G.StrPieces[Tiles[I].Piece]
+				if Tiles[I].Colour == G.Colours.red:
+					str += G.StrPieces[Tiles[I].Piece].to_upper()
+				else:
+					str += G.StrPieces[Tiles[I].Piece]
 			if I % 12 == 11:
 				A.append(str)
 				str = ""
